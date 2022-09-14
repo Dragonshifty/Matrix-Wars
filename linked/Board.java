@@ -1,9 +1,7 @@
 package linked;
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
-
 
 public class Board extends Matrices implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -199,8 +197,7 @@ public class Board extends Matrices implements ActionListener {
 		frame.setSize(400, 500);
 		frame.setLayout(null);
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		
+		frame.setVisible(true);		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
@@ -394,8 +391,6 @@ public class Board extends Matrices implements ActionListener {
 			Brains.roundMain++;
 			if (Brains.roundMain == 4) {
 				JOptionPane.showMessageDialog(frame, "YOU WON!!!", "Well done!", JOptionPane.INFORMATION_MESSAGE);
-//				hit=0;
-//				miss=0;
 				total=50;
 				Brains.totalMain = 50;
 				Brains.roundMain = 1;

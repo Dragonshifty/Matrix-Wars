@@ -3,11 +3,6 @@ import java.util.Random;
 public class Matrices {
 	public static int[][] matrix = new int[4][4];		
 	public int[][] compMatrix = new int[4][4];
-	
-//	public static int totally = 50;
-//	public static int roundy = 1;
-//	public static int totalHighScore;
-//	public static int totalHighScoreStore = 135;
 		
 	public void setMatrices(){
 		
@@ -53,7 +48,4 @@ public class Matrices {
 		count++;
 		}
 	}
-	
-
-
 }
