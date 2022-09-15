@@ -16,6 +16,7 @@ public class Brains extends Board{
 	}
 
 	public boolean[] run(){	
+		
 		if (player > comp & comp < 6) {			
 			int temp = player - comp;
 			total -= temp;									
@@ -26,9 +27,23 @@ public class Brains extends Board{
 			} else if (hit >= 5){
 				check[1] = true;
 			}
-		} else if (player > comp & comp >= 6) { 
-			total += 5;								
+		} else if (player > comp & comp >= 6) { 			
+			switch(comp) {
+				case 6:
+					total += 5;
+					break;
+				case 7:
+					total += 5;
+					break;
+				case 8:
+					total += 8;
+					break;
+				case 9:
+					total += 9;
+					break;
+			}													
 			check[0] = true;
+			
 			if (hit < 5){				
 				hit++;
 				check[1] = false;

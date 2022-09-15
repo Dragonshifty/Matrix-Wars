@@ -346,23 +346,38 @@ public class Board extends Matrices implements ActionListener {
 		comp = Integer.parseInt(computer);
 		
 		Brains brain = new Brains(comp, player);
-		check = brain.run(); 
+		check = brain.run(); // Returns a boolean array for hit/miss, hits < 5, miss < 5
 		
 		hitPointsText.setText(String.valueOf(total));
 		hitText.setText(String.valueOf(hit));
 		missText.setText(String.valueOf(miss));		
 		
 		if (check[0] == true) {			
-
+			
 			if (comp >= 6) {
-				messageText.setText("Hit! +5");
-				Brains.totalHighScoreStore += 5;
+				switch(comp) {
+					case 6:
+						messageText.setText("Hit! +5");
+						Brains.totalHighScoreStore += 5;
+						break;
+					case 7:
+						messageText.setText("Hit! +5");
+						Brains.totalHighScoreStore += 5;
+						break;
+					case 8:
+						messageText.setText("CRIT! +8");
+						Brains.totalHighScoreStore += 8;
+						break;
+					case 9:
+						messageText.setText("CRIT! +9");
+						Brains.totalHighScoreStore += 9;
+						break;
+				}	
 			} else {
 				String hitAmount = String.valueOf(player - comp);
 				messageText.setText("Hit! -" + hitAmount);
 				Brains.totalHighScoreStore -= player - comp;
-			}									
-			
+			}												
 			totalHitPoints.setText(String.valueOf(Brains.totalHighScoreStore + "/135 : Total HP"));
 		} else if (check[0] == false) {
 			messageText.setText("Miss! -10");
