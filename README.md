@@ -1,5 +1,5 @@
 # Matrix-Wars
-A slightly infuriating but satisfying game where you can't leave until you get to the next level (or maybe the next after that?).
+A slightly infuriating but satisfying game where you can't leave until you at least get to the next level (probably).
 
 The aim of the game is to clear three rounds to get to the next level. 
 
