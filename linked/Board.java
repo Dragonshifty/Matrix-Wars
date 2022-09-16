@@ -25,6 +25,7 @@ public class Board extends Matrices implements ActionListener {
 	JLabel missText;
 	JLabel sessionHighScore;
 	JLabel totalHitPoints;
+	JLabel currentLevel;
 	JFrame frame;
 	
 	JButton b1;
@@ -85,7 +86,7 @@ public class Board extends Matrices implements ActionListener {
 		messageText.setHorizontalAlignment(SwingConstants.CENTER);
 		messageText.setFont(new Font("Calibri", Font.BOLD, 20));
 		messageText.setForeground(Color.WHITE);
-		messageText.setBounds(142, 370, 100, 50);
+		messageText.setBounds(142, 365, 100, 50);
 		
 		JLabel roundLabel = new JLabel("Round");
 		roundLabel.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -130,6 +131,12 @@ public class Board extends Matrices implements ActionListener {
 		totalHitPoints.setForeground(Color.RED);
 		totalHitPoints.setHorizontalAlignment(SwingConstants.LEFT);
 		totalHitPoints.setBounds(8, 420, 150, 50);
+		
+		currentLevel = new JLabel (String.valueOf(Brains.level));
+		currentLevel.setFont(new Font("Calibri", Font.BOLD, 30));
+		currentLevel.setForeground(Color.GREEN);
+		currentLevel.setHorizontalAlignment(SwingConstants.CENTER);
+		currentLevel.setBounds(0, 418, 380, 50);
 		
 		b1.setBounds(75, 80, 50, 50);
 		b2.setBounds(135, 80, 50, 50);
@@ -177,6 +184,7 @@ public class Board extends Matrices implements ActionListener {
 		frame.add(missText);
 		frame.add(sessionHighScore);
 		frame.add(totalHitPoints);
+		frame.add(currentLevel);
 		frame.add(b1);
 		frame.add(b2);
 		frame.add(b3);
@@ -403,15 +411,24 @@ public class Board extends Matrices implements ActionListener {
 			hit=0;
 			miss=0;
 			Brains.totalMain -= 5;
-			Brains.roundMain++;
+			Brains.roundMain++;			
 			if (Brains.roundMain == 4) {
-				JOptionPane.showMessageDialog(frame, "YOU WON!!!", "Well done!", JOptionPane.INFORMATION_MESSAGE);
+				boolean levelCheck = brain.checkLevel();
+				String levelText = "Excellent! On to round: " + Brains.level;
+				if (Brains.totalHighScore == 8) {
+					JOptionPane.showMessageDialog(frame, "You've finished the game!!!", "AWESOME!", JOptionPane.INFORMATION_MESSAGE);
+					Brains.total++;
+				} else if (levelCheck == true) {
+					JOptionPane.showMessageDialog(frame, levelText, "Well Done!", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(frame, "YOU WON!!!", "Well Done!", JOptionPane.INFORMATION_MESSAGE);
+				}								
 				total=50;
 				Brains.totalMain = 50;
 				Brains.roundMain = 1;
 				if (Brains.totalHighScoreStore > Brains.totalHighScore) {
 					Brains.totalHighScore = Brains.totalHighScoreStore;					
-				}
+				}				
 				Brains.totalHighScoreStore = 135;
 				frame.dispose();
 				Board board = new Board();

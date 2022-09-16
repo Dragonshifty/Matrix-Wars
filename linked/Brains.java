@@ -9,6 +9,7 @@ public class Brains extends Board{
 	public static int roundMain = 1;
 	public static int totalHighScore;
 	public static int totalHighScoreStore = 135;
+	public static int level = 1;
 		
 	public Brains(int comp, int player) {
 		this.comp = comp;
@@ -62,5 +63,47 @@ public class Brains extends Board{
 		}	
 		return check;
 	}
+	
+	public boolean checkLevel() {
+		switch (level) {
+		case 1:
+			if (totalHighScoreStore > 30) {
+				level++;
+				return true;
+			}
+		case 2:
+			if (totalHighScoreStore > 40) {
+				level++;
+				return true;
+			}
+		case 3:
+			if (totalHighScoreStore > 50) {
+				level++;
+				return true;
+			}
+		case 4:
+			if (totalHighScoreStore > 60) {
+				level++;
+				return true;
+			}
+		case 5:
+			if (totalHighScoreStore > 70) {
+				level++;
+				return true;
+			}
+		case 6:
+			if (totalHighScoreStore > 80) {
+				level++;
+				return true;
+			}
+		case 7:
+			if (totalHighScoreStore > 90) {
+				level++;
+				return true;
+			}
+		default:
+			return false;
+		} 
+	} 
 }
 
