@@ -1,6 +1,10 @@
 # Matrix-Wars
-A slightly infuriating but satisfying game where you can't leave until you at least get to the next level (probably).
+A one-step-at-a-time strategy game.
 
+TL;DR:
+You see your opponets board but not your own. Score a higher number to get a hit. Score a hit above a 6 to get hit points, hits below 6 deducts hit points (but are easier to score). 5 hits to clear a round, 5 misses loses, 3 rounds for a game win and high score is your remaining total hit points. Get better high scores to level up.
+
+In-depth:
 The aim of the game is to clear three rounds to get to the next level. 
 
 The game starts with a 4x4 matrix representing the computer's game board. A second, hidden matrix is also created, which is the player's board and covers the same 4x4 area. The player starts with 50 hit points, which goes down to 45 for round 2, and 40 for the final round. 
