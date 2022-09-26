@@ -9,7 +9,7 @@ public class Brains extends Board{
 	public static int roundMain = 1;
 	public static int totalHighScore;
 	public static int totalHighScoreStore = 135;
-	public static int level = 4;
+	public static int level = 1;
 		
 	public Brains(int comp, int player) {
 		this.comp = comp;
