@@ -9,7 +9,7 @@ public class Brains extends Board{
 	public static int roundMain = 1;
 	public static int totalHighScore;
 	public static int totalHighScoreStore = 135;
-	public static int level = 1;
+	public static int level = 4;
 		
 	public Brains(int comp, int player) {
 		this.comp = comp;
@@ -17,8 +17,8 @@ public class Brains extends Board{
 	}
 
 	public boolean[] run(){	
-		
-		if (player > comp & comp < 6) {			
+		if (player > comp & comp < 5) {	
+			// Check for successful hit and if it's below 5
 			int temp = player - comp;
 			total -= temp;									
 			check[0] = true;
@@ -28,21 +28,26 @@ public class Brains extends Board{
 			} else if (hit >= 5){
 				check[1] = true;
 			}
-		} else if (player > comp & comp >= 6) { 			
+		} else if (player > comp & comp >= 5) { 
+			// Check for successful hit and if it's 5 or above
 			switch(comp) {
-				case 6:
+				case 5:
 					total += 5;
+					break;
+				case 6:
+					total += 6;
 					break;
 				case 7:
-					total += 5;
+					total += 7;
 					break;
 				case 8:
-					total += 8;
+					total += 16;
 					break;
 				case 9:
-					total += 9;
+					total += 18;
 					break;
-			}													
+			}
+			// Boolean for successful hit
 			check[0] = true;
 			
 			if (hit < 5){				
@@ -52,7 +57,26 @@ public class Brains extends Board{
 				check[1] = true;
 			}
 		} else {
-			total -= 10;
+			// Miss
+			switch (comp) {
+				// Deduct points, progressively less for higher risk numbers
+				case 6:
+					total -= 8;
+					break;
+				case 7:
+					total -= 6;
+					break;
+				case 8:
+					total -= 5;
+					break;
+				case 9:
+					total -= 4;
+					break;
+				default:
+					total -= 10;
+			}
+			
+						
 			check[0] = false;
 			if (miss < 5) {
 				miss++;
@@ -61,6 +85,7 @@ public class Brains extends Board{
 				check[2] = true;
 			}
 		}	
+		// Returns a boolean array for hit/miss, hits < 5, miss < 5
 		return check;
 	}
 	

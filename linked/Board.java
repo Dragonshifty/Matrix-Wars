@@ -283,8 +283,10 @@ public class Board extends Matrices implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 				
+		// Get computer's score reference
 		computer = e.getActionCommand();
 		
+		// Get player's score reference, turn button red, and disable button
 		if (source == b1) {
 			player = matrix[0][0];
 			b1.setBackground(Color.RED);
@@ -360,40 +362,72 @@ public class Board extends Matrices implements ActionListener {
 		hitText.setText(String.valueOf(hit));
 		missText.setText(String.valueOf(miss));		
 		
-		if (check[0] == true) {			
-			
-			if (comp >= 6) {
+		// On successful hit and above a 5, apply hit points
+		if (check[0] == true) {						
+			if (comp >= 5) {
 				switch(comp) {
-					case 6:
+					case 5:
 						messageText.setText("Hit! +5");
 						Brains.totalHighScoreStore += 5;
+						break;
+					case 6:
+						messageText.setText("Hit! +6");
+						Brains.totalHighScoreStore += 6;
 						break;
 					case 7:
-						messageText.setText("Hit! +5");
-						Brains.totalHighScoreStore += 5;
+						messageText.setText("Hit! +7");
+						Brains.totalHighScoreStore += 7;
 						break;
 					case 8:
-						messageText.setText("CRIT! +8");
-						Brains.totalHighScoreStore += 8;
+						messageText.setText("CRIT! +16");
+						Brains.totalHighScoreStore += 16;
 						break;
 					case 9:
-						messageText.setText("CRIT! +9");
-						Brains.totalHighScoreStore += 9;
+						messageText.setText("CRIT! +18");
+						Brains.totalHighScoreStore += 18;
 						break;
 				}	
 			} else {
+				// Successful hit but under 5 so deduct hit points with difference 
 				String hitAmount = String.valueOf(player - comp);
 				messageText.setText("Hit! -" + hitAmount);
 				Brains.totalHighScoreStore -= player - comp;
 			}												
 			totalHitPoints.setText(String.valueOf(Brains.totalHighScoreStore + "/135 : Total HP"));
 		} else if (check[0] == false) {
-			messageText.setText("Miss! -10");
-			Brains.totalHighScoreStore -= 10;
+			// Miss, deduct hit points
+			switch (comp) {
+			// Deduct points, progressively less for higher risk numbers
+			case 6:
+				messageText.setText("Miss! -8");
+				Brains.totalHighScoreStore -= 8;
+				total -= 8;
+				break;
+			case 7:
+				messageText.setText("Miss! -6");
+				Brains.totalHighScoreStore -= 6;
+				total -= 6;
+				break;
+			case 8:
+				messageText.setText("Miss! -5");
+				Brains.totalHighScoreStore -= 5;
+				total -= 5;
+				break;
+			case 9:
+				messageText.setText("Miss! -4");
+				Brains.totalHighScoreStore -= 4;
+				total -= 4;
+				break;
+			default:
+				messageText.setText("Miss! -10");
+				Brains.totalHighScoreStore -= 10;
+		}
+			// Display highscore			
 			totalHitPoints.setText(String.valueOf(Brains.totalHighScoreStore) + "/135 : Total HP");
 		}
 		
 		if (miss > 4 | total <= 0) {
+			// Miss and five misses in a row. Reset board.
 			JOptionPane.showMessageDialog(frame, "You lose!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
 			hit=0;
 			miss=0;
@@ -408,24 +442,28 @@ public class Board extends Matrices implements ActionListener {
 		}
 		
 		if (hit > 4 & round != 3 & total > 0) {
+			// Five successful hits, not the final round, and hit points not negative
 			hit=0;
 			miss=0;
-			Brains.totalMain -= 5;
-			Brains.roundMain++;			
+			Brains.totalMain -= 5; // Reduce round hit points by five
+			Brains.roundMain++; // Increment round 			
 			if (Brains.roundMain == 4) {
+				// Three rounds cleared, run level logic
 				boolean levelCheck = brain.checkLevel();
-				String levelText = "Excellent! On to round: " + Brains.level;
+				String levelText = "Excellent! On to level: " + Brains.level;
 				if (Brains.totalHighScore == 8) {
 					JOptionPane.showMessageDialog(frame, "You've finished the game!!!", "AWESOME!", JOptionPane.INFORMATION_MESSAGE);
 					Brains.total++;
 				} else if (levelCheck == true) {
 					JOptionPane.showMessageDialog(frame, levelText, "Well Done!", JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					JOptionPane.showMessageDialog(frame, "YOU WON!!!", "Well Done!", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "You won but don't have enough points for the next level", "Well Done!", JOptionPane.INFORMATION_MESSAGE);
 				}								
+				// reset
 				total=50;
 				Brains.totalMain = 50;
 				Brains.roundMain = 1;
+				// Check highscore and overwrite if new highscore higher
 				if (Brains.totalHighScoreStore > Brains.totalHighScore) {
 					Brains.totalHighScore = Brains.totalHighScoreStore;					
 				}				
